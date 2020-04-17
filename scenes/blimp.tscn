@@ -1,0 +1,86 @@
+[gd_scene load_steps=9 format=1]
+
+[ext_resource path="res://scripts/blimp.gd" type="Script" id=1]
+[ext_resource path="res://sprites/blimp.png" type="Texture" id=2]
+[ext_resource path="res://sprites/smoke.png" type="Texture" id=3]
+[ext_resource path="res://sounds/fx/blimp.smp" type="Sample" id=4]
+[ext_resource path="res://sounds/fx/explosion_blimp.smp" type="Sample" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 60, 12 )
+
+[sub_resource type="ColorRamp" id=2]
+
+offsets = FloatArray( 0, 1 )
+colors = ColorArray( 0.359375, 0.359375, 0.359375, 1, 1, 1, 1, 0 )
+
+[sub_resource type="SampleLibrary" id=3]
+
+samples/blimp = { "db":0.0, "pitch":1.0, "sample":ExtResource( 4 ) }
+samples/explosion_blimp = { "db":0.0, "pitch":1.0, "sample":ExtResource( 5 ) }
+
+[node name="blimp" type="Area2D"]
+
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Particles2D" type="Particles2D" parent="."]
+
+transform/pos = Vector2( 30.4713, -0.716972 )
+config/amount = 32
+config/lifetime = 3.0
+config/emitting = false
+config/texture = ExtResource( 3 )
+params/direction = 135.0
+params/spread = 10.0
+params/linear_velocity = 100.0
+params/spin_velocity = 5.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 0.0
+params/gravity_strength = 0.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 0.5
+params/final_size = 1.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/spin_velocity = 0.5
+randomness/orbit_velocity = 0.5
+color/color_ramp = SubResource( 2 )
+
+[node name="SamplePlayer2D" type="SamplePlayer2D" parent="."]
+
+params/volume_db = -10.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 1000.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 3 )
+config/pitch_random = 0.0
+
+[connection signal="area_enter" from="." to="." method="_on_blimp_area_enter"]
+
+

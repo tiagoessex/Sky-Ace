@@ -1,0 +1,94 @@
+[gd_scene load_steps=15 format=1]
+
+[ext_resource path="res://scripts/game_src.gd" type="Script" id=1]
+[ext_resource path="res://sprites/background.png" type="Texture" id=2]
+[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/clouds_generator.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/buildings_generator.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/rockets_generator.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/rocket.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/blimps_generator.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/choppers_generator.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/chopper.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/stage_gui.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/cloud_big.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/cloud_small.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/building1.tscn" type="PackedScene" id=14]
+
+[node name="game_src" type="Node"]
+
+script/script = ExtResource( 1 )
+
+[node name="TextureFrame" type="TextureFrame" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 980.0
+margin/bottom = 480.0
+texture = ExtResource( 2 )
+stretch_mode = 0
+
+[node name="player" parent="." instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 195.779, 250.943 )
+
+[node name="clouds_generator" parent="." instance=ExtResource( 4 )]
+
+[node name="buildings_generator" parent="." instance=ExtResource( 5 )]
+
+[node name="rockets_generator" parent="." instance=ExtResource( 6 )]
+
+[node name="rocket" parent="rockets_generator" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 1370.17, 28.6392 )
+
+[node name="blimps_generator" parent="." instance=ExtResource( 8 )]
+
+[node name="choppers_generator" parent="." instance=ExtResource( 9 )]
+
+[node name="chopper" parent="choppers_generator" instance=ExtResource( 10 )]
+
+transform/pos = Vector2( 1088.3, 226.101 )
+
+[node name="stage_gui" parent="." instance=ExtResource( 11 )]
+
+[node name="Timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 0.25
+one_shot = false
+autostart = true
+
+[node name="Timer_gameover" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 2.0
+one_shot = true
+autostart = false
+
+[node name="cloud_medium" parent="." instance=ExtResource( 12 )]
+
+transform/pos = Vector2( 179, 384 )
+flip_h = true
+
+[node name="cloud_small" parent="." instance=ExtResource( 13 )]
+
+transform/pos = Vector2( 672.001, 112 )
+
+[node name="building1" parent="." instance=ExtResource( 14 )]
+
+transform/pos = Vector2( 180, 495.001 )
+
+[node name="building2" parent="." instance=ExtResource( 14 )]
+
+transform/pos = Vector2( 723.001, 560 )
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+
+[connection signal="timeout" from="Timer_gameover" to="." method="_on_Timer_gameover_timeout"]
+
+
