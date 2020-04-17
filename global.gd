@@ -10,7 +10,7 @@ var gameover = false
 var sound = true
 
 var admob = null;
-var admob_interstitial_id = "ca-app-pub-8046147134902132/8402156609"
+var admob_interstitial_id = "xxxxxxxxxxxx"
 
 
 func _ready():
